@@ -1,9 +1,14 @@
-import { React, useState } from "react";
+import { React, useRef, useState } from "react";
 import Login_bg from "../assets/Login_bg.jpg";
 import Header from "./Header";
+import checkValidData from "../../utils/checkValidData";
 
 const Login = () => {
   const [togglebutton, setToggleButton] = useState(0);
+  const [errormessage, setErrormessage] = useState(null);
+
+  const email = useRef(null);
+  const password = useRef(null);
 
   return (
     <div
@@ -13,7 +18,10 @@ const Login = () => {
       }}
     >
       <Header />
-      <form className="flex flex-col mt-7 mx-auto bg-black opacity-75 w-[450px] p-14 font-mono rounded-xl">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col mt-7 mx-auto bg-black opacity-75 w-[450px] p-14 font-mono rounded-xl"
+      >
         <h1 className="text-white text-4xl font-black tracking-tighter">
           {togglebutton ? "Sign Up" : "Sign In"}
         </h1>
@@ -31,18 +39,30 @@ const Login = () => {
         {togglebutton ? <br /> : ""}
         <input
           type="text"
+          ref={email}
           placeholder="Email or mobile number"
           className="text-white bg-stone-900 h-[52px] px-5 border-1 border-solid border-gray-300 rounded-md"
         />
         <br />
         <input
           type="password"
+          ref={password}
           placeholder="Password"
           className="text-white bg-stone-900 h-[52px] px-5 border-1 border-solid border-gray-300 rounded-md"
         />
+        <p className="text-red-500 mt-5 mx-1 font-bold tracking-widest">{errormessage}</p>
         <br />
-        <br />
-        <button className="text-white bg-red-600 h-[44px] px-5 rounded-md text-lg cursor-pointer">
+        <button
+          className="text-white bg-red-600 h-[44px] px-5 rounded-md text-lg cursor-pointer"
+          onClick={() => {
+            const message = checkValidData(
+              email.current.value,
+              password.current.value
+            );
+            console.log(message);
+            setErrormessage(message);
+          }}
+        >
           {togglebutton ? "Get Started" : "Sign In"}
         </button>
         <br />
