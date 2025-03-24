@@ -15,6 +15,9 @@ build
 .firebase
 firebase.jsx
 *.local
+.firebase/
+build/
+utils/firebase.jsx
 
 # Editor directories and files
 .vscode/*
