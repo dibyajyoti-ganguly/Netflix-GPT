@@ -104,8 +104,8 @@ const Login = () => {
                 })
                 .catch((error) => {
                   const errorCode = error.code;
-                  const errorMessage = error.message;
-                  setErrormessage(errorCode + "-" + errorMessage);
+                  if (errorCode === "auth/invalid-credential")
+                    setErrormessage("User not found!");
                 });
             }
           }}
