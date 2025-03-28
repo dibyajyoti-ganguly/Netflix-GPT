@@ -1,7 +1,12 @@
 import React from "react";
+import Browsheader from "./Browsheader";
 
 const Browse = () => {
-  return <div>Browse</div>;
+  return (
+    <div className="bg-gray-900 min-h-screen pt-5">
+      <Browsheader />
+    </div>
+  );
 };
 
 export default Browse;
