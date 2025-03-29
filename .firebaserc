@@ -1,5 +1,16 @@
 {
   "projects": {
-    "default": "netflixgpt-29426"
-  }
+    "default": "netgpt-67489",
+    "netgpt": "netgpt-67489"
+  },
+  "targets": {
+    "netgpt-67489": {
+      "hosting": {
+        "default": [
+          "netgpt-67489"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
