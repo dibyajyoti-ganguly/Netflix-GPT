@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/logo.svg";
 import Userlogo from "../assets/Userlogo.png";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { removeUser } from "../../utils/userSlice";
+import { useDispatch } from "react-redux";
 
 function Browsheader() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/");
+        // ...
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="mx-[10%] flex justify-between font-mono">
       <img src={Logo} alt="logo" className="w-[100px]" />
@@ -18,7 +33,6 @@ function Browsheader() {
             signOut(auth)
               .then(() => {
                 // Sign-out successful.
-                navigate("/");
                 console.log("Sign-out successful.");
               })
               .catch((error) => {
